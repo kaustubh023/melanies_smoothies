@@ -1,7 +1,7 @@
 # Import python packages
 from snowflake.snowpark.functions import col
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
+# from snowflake.snowpark.context import get_active_session
 
 st.title('🥤 Customize Your Smoothie! 🥤')
 st.write("""Choose The Fruits You Want In Your Custom Smoothie!""")
@@ -9,7 +9,8 @@ st.write("""Choose The Fruits You Want In Your Custom Smoothie!""")
 name_on_order = st.text_input('Name On Smoothie')
 st.write('The name on your Smoothie will be:', name_on_order)
 
-session = get_active_session()
+cnx=st.connection("snowflake")
+session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 
 # ✅ Added max_selections=5
